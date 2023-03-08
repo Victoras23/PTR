@@ -1,15 +1,17 @@
 defmodule LongestCommonPrefix do
-  def find(strings) do
-    strings
-    |> Enum.reduce(&longest_prefix/2)
-  end
+  def longest_common_prefix(strings) do
+    case strings do
+      [] -> ""
+      [string] -> string
+      _ ->
+        prefix = Enum.take_while(Enum.at(strings, 0), fn (char, index) ->
+          Enum.all?(Enum.drop(strings, 1), fn string ->
+            String.at(string, index) == char
+          end)
+        end)
 
-  def longest_prefix(string1, string2) do
-    for i <- 0..min(String.length(string1), String.length(string2)) - 1, do:
-      if String.at(string1, i) == String.at(string2, i), do:
-        if i == String.length(string1) - 1, do  return string1 end
-  else
-        return String.slice("string1", 0, i)
+        prefix |> to_string()
     end
   end
-IO.inspect LongestCommonPrefix.find ([" flower " ," flow " ," flight "])
+end
+IO.inspect LongestCommonPrefix.longest_common_prefix ([" flower " ," flow " ," flight "])

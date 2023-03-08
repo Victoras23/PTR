@@ -1,11 +1,11 @@
+import Week1
+
+print_hello()
 defmodule TestWeek1 do
   use ExUnit.Case
   import ExUnit.CaptureIO
 
-  setup do
-    ExUnit.start()
-    :ok
-  end
+  ExUnit.start()
 
   test "prints Hello PTR" do
     assert capture_io(fn ->
